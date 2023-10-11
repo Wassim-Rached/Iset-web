@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow-x: hidden;
+}
+
+/* ex1 css starts */
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+nav li {
+  margin-left: 2px;
+  display: inline-block;
+}
+nav ul li a {
+  display: block;
+  width: 100px;
+  background-color: #6595ed;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
+  border: 2px solid;
+  border-color: #dcdcdc #696969 #696969 #dcdcdc;
+  border-radius: 5px;
+}
+nav a:hover {
+  transform: translateY(-2px) rotate(30deg);
+}
+nav a:active {
+  background-color: #d3d3d3;
+  border-color: #696969 #dcdcdc #dcdcdc #696969;
+}
+/* ex1 css ends */
+
+.club_logo {
+  width: 60px;
+  height: 60px;
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: center center;
+  transition: all 0.3 linear;
+}
+
+table,
+tr,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 9px;
+}
+
+#panorama {
+  height: 400px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: panoramaAnimation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  transition: all linear 0.3s;
+}
+
+@keyframes panoramaAnimation {
+  0% {
+    background-image: url("./images/messi1.jpg");
+  }
+  25% {
+    background-image: url("./images/messi2.jpeg");
+  }
+  50% {
+    background-image: url("./images/messi3.jpg");
+  }
+  100% {
+    background-image: url("./images/messi4.jpeg");
+  }
+}
+
+@keyframes rotate {
+  from {
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

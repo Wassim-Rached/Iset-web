@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ex2</title>
+    <style>
+      img {
+        width: 100px;
+        display: block;
+        transition: 0.3s all ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+      alt=""
+    />
+    <button type="button">disparaître</button>
+    <button type="button">revenir</button>
+    <script>
+      const button_disparaître__dom =
+        document.getElementsByTagName("button")[0];
+      const button_revenir__dom = document.getElementsByTagName("button")[1];
+
+      button_disparaître__dom.addEventListener("click", () => {
+        const img__dom = document.querySelector("img");
+        img__dom.style.opacity = 0;
+      });
+
+      button_revenir__dom.addEventListener("click", () => {
+        const img__dom = document.querySelector("img");
+        img__dom.style.opacity = 1;
+      });
+    </script>
+  </body>
+</html>

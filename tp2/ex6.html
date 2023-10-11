@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>Event Bubbles</title>
+    <script type="text/javascript">
+      function init() {
+        document
+          .getElementsByTagName("html")[0]
+          .addEventListener("click", () => {
+            alert("Propagation dans l'élément html");
+          });
+        window.addEventListener("click", winEvent);
+        document.addEventListener("click", docEvent);
+        document.body.addEventListener("click", docBodEvent);
+
+        document.querySelector("form").addEventListener("click", () => {
+          alert("Il se propage au formulaire.");
+        });
+
+        document.getElementsByName("main1")[0].addEventListener("click", () => {
+          onclick = "alert('Lévènement commence au boutton: ' + this.name)";
+        });
+      }
+
+      function winEvent() {
+        alert("Propagation dans l'objet window");
+      }
+
+      function docEvent() {
+        alert("Propagation dans l'objet document");
+      }
+
+      function docBodEvent() {
+        alert("La propagation se fait dans le BODY.");
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <h1>Propagation des évènements</h1>
+    <hr />
+    <form>
+      <input type="button" value="Button 'main1'" name="main1" />
+    </form>
+  </body>
+</html>

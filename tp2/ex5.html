@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex5</title>
+    <style></style>
+  </head>
+  <body>
+    <ul>
+      <li>Lorem.</li>
+      <li>Lorem.</li>
+      <li>Lorem.</li>
+      <li>Lorem.</li>
+      <li>Lorem.</li>
+      <li>Lorem.</li>
+    </ul>
+    <script>
+      const ul__dom = document.getElementsByTagName("ul")[0];
+      const li__dom = document.getElementsByTagName("li");
+
+      ul__dom.setAttribute("type", "circle");
+
+      for (let i = 0; i < li__dom.length; i++) {
+        const element = li__dom[i];
+
+        element.setAttribute("onClick", "alert('Bon Travail')");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mon titre</title>
+    <script type="text/javascript" src="lib.js"></script>
+  </head>
+  <body>
+    <h1 onClick="showHxContent(1)">Partie 1</h1>
+    <div id="title1" style="display: none">
+      <p>Mon premier paragraphe</p>
+      <p>Mon second paragraphe</p>
+    </div>
+    <h1 onClick="showHxContent(2)">Partie 2</h1>
+    <div id="title2" style="display: none">
+      <p>Mon premier paragraphe</p>
+      <p>Mon second paragraphe</p>
+    </div>
+    <p>
+      <input type="submit" value="Masquer" onClick="hideAllDivs()" />
+    </p>
+    <p>
+      Titre n°: <input type="text" id="title" />
+      <input type="submit" value="Afficher" onClick="alertTitle()" />
+    </p>
+    <script>
+      function showHxContent(n) {
+        document.getElementById("title" + n).style.display = "block";
+      }
+
+      function hideAllDivs() {
+        document.querySelectorAll("div").forEach((div) => {
+          div.style.display = "none";
+        });
+      }
+
+      function alertTitle() {
+        const title_n = document.getElementById("title").value;
+        const content = document.getElementById("title" + title_n).innerHTML;
+        alert(content);
+      }
+
+      function deleteTitle(n) {
+        const title__dom = document.getElementsByTagName("h1")[n - 1];
+
+        title__dom.removeChild(...title__dom.childNodes);
+      }
+
+      function defineTitle(n) {
+        const title__dom = document.getElementsByTagName("h1")[n - 1];
+
+        if (title__dom.hasChildNodes) deleteTitle(n);
+
+        const textNode = document.createTextNode("Nouveau titre");
+
+        title__dom.appendChild(textNode);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ex1</title>
+    <style>
+      a {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const body__dom_1 = document.getElementsByTagName("div")[0];
+      const body__dom_2 = document.querySelector("div");
+
+      const a__dom_1 = document.createElement("a");
+      const a__dom_2 = document.createElement("a");
+
+      a__dom_1.setAttribute("href", "http://www.gmail.com");
+      a__dom_1.innerText = "go to gmail - with 'getElementsByTagName'";
+
+      a__dom_2.setAttribute("href", "http://www.gmail.com");
+      a__dom_2.innerText = "go to gmail - with 'querySelector'";
+
+      document.body.appendChild(a__dom_1);
+      document.body.appendChild(a__dom_2);
+    </script>
+  </body>
+</html>

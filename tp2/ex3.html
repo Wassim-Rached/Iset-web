@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex3</title>
+  </head>
+  <body>
+    <h1 onclick="modif_paragraphe('new text')">titre</h1>
+    <p onclick="centrage_h1()">old paragraph</p>
+    <script>
+      function modif_paragraphe(text) {
+        const p__dom = document.getElementsByTagName("p")[0];
+        p__dom.textContent = text;
+        p__dom.style.fontStyle = "italic";
+      }
+
+      function centrage_h1() {
+        const h1__dom = document.getElementsByTagName("h1")[0];
+        h1__dom.style.textAlign = "center";
+      }
+    </script>
+  </body>
+</html>

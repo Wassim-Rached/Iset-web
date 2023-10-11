@@ -1,0 +1,90 @@
+body {
+  background: rgb(238, 238, 238);
+  min-height: 100vh;
+}
+
+.container {
+  height: 200px;
+  width: 200px;
+  border: red 1px solid;
+  position: relative;
+}
+
+.circle {
+  height: 40px;
+  width: 40px;
+  background: green;
+  border-radius: 50%;
+}
+
+.item {
+  position: absolute;
+}
+
+.anim-1,
+.anim-2,
+.anim-3 {
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  transition-timing-function: ease-out;
+}
+
+.anim-1 {
+  margin-left: calc(50% - 20px);
+  animation-name: animation-1;
+}
+
+@keyframes animation-1 {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: calc(100% - 40px);
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+.anim-2 {
+  animation-name: animation-2;
+}
+
+@keyframes animation-2 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  50% {
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+
+.anim-3 {
+  animation-name: animation-3;
+}
+
+@keyframes animation-3 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  33% {
+    top: 0;
+    left: calc(100% - 40px);
+  }
+  66% {
+    top: calc(100% - 40px);
+    left: 0;
+  }
+  100% {
+    top: calc(100% - 40px);
+    left: calc(100% - 40px);
+  }
+}

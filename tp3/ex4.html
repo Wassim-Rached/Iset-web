@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex4</title>
+    <style>
+      video {
+        width: 75px;
+        -o-transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        animation: anim infinite 2s ease-in-out;
+      }
+      video:hover,
+      video:focus {
+        width: 600px;
+      }
+
+      @keyframes anim {
+        0% {
+          transform: rotate(0deg);
+        }
+        33% {
+          transform: rotate(4deg);
+        }
+        66% {
+          transform: rotate(-4deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+    </style>
+  </head>
+  <body onload="creerBoutons()">
+    <video id="mavideo" controls>
+      <source
+        src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
+        type="video/mp4"
+      />
+      <source src="http://clips.vorwaerts-gmbh.de/VfE.webm" type="video/webm" />
+      <source src="http://clips.vorwaerts-gmbh.de/VfE.ogv" type="video/ogg" />
+      <p class="alert">
+        Votre navigateur ne supporte pas la balise vidéo ! Mettez-vous à jour !
+      </p>
+    </video>
+    <div class="controles" hidden></div>
+    <script>
+      var video = document.getElementById("mavideo");
+
+      function lecture() {
+        video.play();
+      }
+
+      function pause() {
+        video.pause();
+      }
+
+      function stop() {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      function avancer(duree) {
+        video.currentTime += duree;
+      }
+
+      function reculer(duree) {
+        video.currentTime -= duree;
+      }
+
+      function creerBoutons() {
+        const controles__dom = document.querySelector(".controles");
+
+        let buttons_arr = [
+          "lecture()",
+          "pause()",
+          "stop()",
+          "reculer(10)",
+          "avancer(10)",
+        ];
+        let btnTitle_arr = ["Lecture", "Pause", "Stop", "-10s", "+10s"];
+
+        const button = document.createElement("button");
+
+        for (let i = 0; i < btnTitle_arr.length; i++) {
+          let btn = document.createElement("button");
+          btn.setAttribute("onClick", buttons_arr[i]);
+          btn.innerHTML = btnTitle_arr[i];
+          controles__dom.appendChild(btn);
+        }
+        controles__dom.hidden = false;
+      }
+    </script>
+  </body>
+</html>
