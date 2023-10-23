@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>HTML5 : Canvas</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #eee;
+        text-align: center;
+        padding-top: 10%;
+      }
+      .palette span {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 4px;
+      }
+      .palette span:hover {
+        border-color: white;
+      }
+      canvas {
+        cursor: crosshair;
+        border: 5px solid #666;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0px 0px 20px #666;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="line-btn">line</button>
+    <button id="cercle-btn">cercle</button>
+    <button id="rectangle-btn">rectangle</button>
+    <!-- Palette de couleurs _ -->
+    <div class="palette">
+      <span
+        onclick="modifierCouleur('#206BA4');"
+        style="background: #206ba4"
+      ></span>
+      <span
+        onclick="modifierCouleur('#54A4DE');"
+        style="background: #54a4de"
+      ></span>
+      <span
+        onclick="modifierCouleur('#BBD9EE');"
+        style="background: #bbd9ee"
+      ></span>
+      <span
+        onclick="modifierCouleur('#BEDF5D');"
+        style="background: #bedf5d"
+      ></span>
+      <span
+        onclick="modifierCouleur('#D6EB9A');"
+        style="background: #d6eb9a"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FF9834');"
+        style="background: #ff9834"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FFBF80');"
+        style="background: #ffbf80"
+      ></span>
+      <span
+        onclick="modifierCouleur('#F6E896');"
+        style="background: #f6e896"
+      ></span>
+      <span
+        onclick="modifierCouleur('#b07d42');"
+        style="background: #b07d42"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FF5349');"
+        style="background: #ff5349"
+      ></span>
+    </div>
+    <!-- Canvas -->
+    <canvas id="dessin" width="480" height="360"></canvas>
+    <script src="index.js"></script>
+  </body>
+</html>
