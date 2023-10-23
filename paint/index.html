@@ -2,6 +2,13 @@
 <html lang="fr">
   <head>
     <title>HTML5 : Canvas</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
     <meta charset="utf-8" />
     <style>
       body {
@@ -28,17 +35,36 @@
         box-shadow: 0px 0px 20px #666;
         margin-top: 20px;
       }
+      .container-max {
+        max-width: 800px;
+        margin-right: auto;
+        margin-left: auto;
+      }
     </style>
   </head>
   <body>
-    <div>
-      <h3></h3>
+    <div class="container container-max mb-5">
+      <div class="row">
+        <div class="col-3">
+          <button class="btn btn-danger" onclick="undo()">undo</button>
+          <button class="btn btn-success" onclick="redo()">redo</button>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-primary" onclick="setForm('fill')">
+            Fill
+          </button>
+          <button class="btn btn-primary" onclick="setForm('creuse')">
+            Creuse
+          </button>
+        </div>
+        <div class="col-4">
+          <button class="btn btn-primary" id="line-btn">Line</button>
+          <button class="btn btn-primary" id="cercle-btn">Cercle</button>
+          <button class="btn btn-primary" id="rectangle-btn">Rectangle</button>
+        </div>
+      </div>
     </div>
-    <div>
-      <button id="line-btn">line</button>
-      <button id="cercle-btn">cercle</button>
-      <button id="rectangle-btn">rectangle</button>
-    </div>
+
     <!-- Palette de couleurs _ -->
     <div class="palette">
       <span

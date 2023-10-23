@@ -3,6 +3,7 @@ const ctx = moncanvas.getContext("2d");
 var en_dessin = false;
 var form = "creuse";
 
+const shapes_trash = [];
 const shapes = [];
 
 const line_btn__dom = document.getElementById("line-btn");
@@ -21,7 +22,6 @@ moncanvas.onmouseup = function (e) {
 
 // Ajoute un segment au tracé _
 function dessiner(x, y) {
-  ctx.lineTo(x, y);
   if (form == "creuse") {
     ctx.stroke();
   }
@@ -30,25 +30,99 @@ function dessiner(x, y) {
     ctx.fill();
   }
 }
+function drawAllShapes() {
+  ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
+
+  shapes.forEach((shape) => {
+    ctx.strokeStyle = shape.strokeStyle;
+    ctx.fillStyle = shape.fillStyle;
+
+    switch (shape.type) {
+      case "line":
+        if (shape.move_to_x) {
+          ctx.beginPath();
+          ctx.moveTo(shape.move_to_x, shape.move_to_y);
+        } else {
+          ctx.lineTo(shape.x, shape.y);
+          ctx.stroke();
+        }
+        break;
+
+      case "circle":
+        ctx.beginPath();
+        ctx.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
+        if (shape.form == "fill") {
+          ctx.fill();
+        } else {
+          ctx.stroke();
+        }
+
+        break;
+
+      case "rectangle":
+        if (shape.form == "fill") {
+          ctx.fillRect(shape.x, shape.y, shape.width, shape.height);
+        } else {
+          ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+        }
+        break;
+
+      default:
+        break;
+    }
+  });
+}
 
 // Modification de la couleur du contexte _
 function modifierCouleur(codeCouleur) {
-  if (codeCouleur) ctx.strokeStyle = codeCouleur;
+  if (codeCouleur) {
+    ctx.strokeStyle = codeCouleur;
+    ctx.fillStyle = codeCouleur;
+  }
 }
 
 line_btn__dom.addEventListener("click", (event) => {
-  // Bouton de souris activé _
+  // Bouton de souris activé
+
   moncanvas.onmousedown = (e) => {
-    // Dessin activé
     en_dessin = true;
     ctx.beginPath();
-    // Repositionnement du début du tracé
-    ctx.moveTo(e.offsetX, e.offsetY);
+
+    move_to_x = e.offsetX;
+    move_to_y = e.offsetY;
+
+    // ctx.moveTo(move_to_x, move_to_y);
+    shapes.push({
+      type: "line",
+      x: null,
+      y: null,
+      strokeStyle: ctx.strokeStyle,
+      fillStyle: ctx.fillStyle,
+      move_to_x: move_to_x,
+      move_to_y: move_to_y,
+    });
+
+    drawAllShapes();
   };
 
   // Mouvement de souris
   moncanvas.onmousemove = function (e) {
-    if (en_dessin) dessiner(e.offsetX, e.offsetY);
+    if (en_dessin) {
+      //   ctx.lineTo(e.offsetX, e.offsetY);
+      //   ctx.stroke();
+
+      shapes.push({
+        type: "line",
+        x: e.offsetX,
+        y: e.offsetY,
+        strokeStyle: ctx.strokeStyle,
+        fillStyle: ctx.fillStyle,
+        move_to_x: null,
+        move_to_y: null,
+      });
+
+      drawAllShapes();
+    }
   };
 });
 
@@ -69,16 +143,28 @@ cercle_btn__dom.addEventListener("click", (event) => {
 
     const endX = e.offsetX;
     const endY = e.offsetY;
+
     const radius = Math.sqrt(
       Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
     );
 
-    ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+    shapes.push({
+      type: "circle",
+      x: startX,
+      y: startY,
+      radius: radius,
+      strokeStyle: ctx.strokeStyle,
+      fillStyle: ctx.fillStyle,
+      form: form,
+    });
 
-    ctx.stroke();
+    drawAllShapes();
+
+    // ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+
+    // ctx.stroke();
   };
 
-  moncanvas.onmousemove = null;
   moncanvas.onmousemove = (e) => {
     if (en_dessin) {
       //   ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
@@ -89,10 +175,22 @@ cercle_btn__dom.addEventListener("click", (event) => {
         Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
       );
 
-      ctx.beginPath();
-      ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+      shapes.pop();
+      shapes.push({
+        type: "circle",
+        x: startX,
+        y: startY,
+        radius: radius,
+        strokeStyle: ctx.strokeStyle,
+        fillStyle: ctx.fillStyle,
+        form: form,
+      });
+      drawAllShapes();
 
-      ctx.stroke();
+      //   ctx.beginPath();
+      //   ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+
+      //   ctx.stroke();
     }
   };
 });
@@ -116,20 +214,59 @@ rectangle_btn__dom.addEventListener("click", (event) => {
     const width = endX - startX;
     const height = endY - startY;
 
-    ctx.strokeRect(startX, startY, width, height);
+    shapes.push({
+      type: "rectangle",
+      x: startX,
+      y: startY,
+      width: width,
+      height,
+      strokeStyle: ctx.strokeStyle,
+      fillStyle: ctx.fillStyle,
+      form: form,
+    });
+
+    drawAllShapes();
+
+    // ctx.strokeRect(startX, startY, width, height);
   };
 
-  moncanvas.onmousemove = null;
   moncanvas.onmousemove = (e) => {
     if (en_dessin) {
-      // ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
+      //   ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
 
       const endX = e.offsetX;
       const endY = e.offsetY;
       const width = endX - startX;
       const height = endY - startY;
 
-      ctx.strokeRect(startX, startY, width, height);
+      shapes.pop();
+      shapes.push({
+        type: "rectangle",
+        x: startX,
+        y: startY,
+        width: width,
+        height,
+        strokeStyle: ctx.strokeStyle,
+        fillStyle: ctx.fillStyle,
+        form: form,
+      });
+      drawAllShapes();
     }
   };
 });
+
+function setForm(value) {
+  form = value;
+}
+
+function undo() {
+  const deleted_shape = shapes.pop();
+  shapes_trash.push(deleted_shape);
+  drawAllShapes();
+}
+
+function redo() {
+  const restored_shape = shapes_trash.pop();
+  shapes.push(restored_shape);
+  drawAllShapes();
+}
