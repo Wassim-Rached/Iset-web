@@ -1,7 +1,9 @@
-var moncanvas = document.getElementById("dessin");
-var ctx = moncanvas.getContext("2d");
+const moncanvas = document.getElementById("dessin");
+const ctx = moncanvas.getContext("2d");
 var en_dessin = false;
 var form = "creuse";
+
+const shapes = [];
 
 const line_btn__dom = document.getElementById("line-btn");
 const cercle_btn__dom = document.getElementById("cercle-btn");
@@ -31,17 +33,7 @@ function dessiner(x, y) {
 
 // Modification de la couleur du contexte _
 function modifierCouleur(codeCouleur) {
-  if (codeCouleur) {
-    if (form == "creuse") {
-      ctx.strokeStyle = codeCouleur;
-      ctx.fillStyle = undefined;
-    }
-
-    if (form == "pleine") {
-      ctx.fillStyle = codeCouleur;
-      ctx.strokeStyle = undefined;
-    }
-  }
+  if (codeCouleur) ctx.strokeStyle = codeCouleur;
 }
 
 line_btn__dom.addEventListener("click", (event) => {
@@ -57,80 +49,6 @@ line_btn__dom.addEventListener("click", (event) => {
   // Mouvement de souris
   moncanvas.onmousemove = function (e) {
     if (en_dessin) dessiner(e.offsetX, e.offsetY);
-  };
-});
-
-cercle_btn__dom.addEventListener("click", (event) => {
-  let startX = 0;
-  let startY = 0;
-
-  moncanvas.onmousedown = (e) => {
-    en_dessin = true;
-
-    startX = e.offsetX;
-    startY = e.offsetY;
-  };
-
-  moncanvas.onmouseup = (e) => {
-    en_dessin = false;
-
-    const endX = e.offsetX;
-    const endY = e.offsetY;
-    const width = endX - startX;
-    const height = endY - startY;
-
-    ctx.strokeRect(startX, startY, width, height);
-  };
-
-  moncanvas.onmousemove = (e) => {
-    if (en_dessin) {
-      ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
-
-      const endX = e.offsetX;
-      const endY = e.offsetY;
-
-      const width = endX - startX;
-      const height = endY - startY;
-
-      ctx.strokeRect(startX, startY, width, height);
-    }
-  };
-});
-
-rectangle_btn__dom.addEventListener("click", (event) => {
-  let startX = 0;
-  let startY = 0;
-
-  moncanvas.onmousedown = (e) => {
-    en_dessin = true;
-
-    startX = e.offsetX;
-    startY = e.offsetY;
-  };
-
-  moncanvas.onmouseup = (e) => {
-    en_dessin = false;
-
-    const endX = e.offsetX;
-    const endY = e.offsetY;
-    const width = endX - startX;
-    const height = endY - startY;
-
-    ctx.strokeRect(startX, startY, width, height);
-  };
-
-  moncanvas.onmousemove = (e) => {
-    if (en_dessin) {
-      ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
-
-      const endX = e.offsetX;
-      const endY = e.offsetY;
-
-      const width = endX - startX;
-      const height = endY - startY;
-
-      ctx.strokeRect(startX, startY, width, height);
-    }
   };
 });
 
@@ -160,9 +78,10 @@ cercle_btn__dom.addEventListener("click", (event) => {
     ctx.stroke();
   };
 
+  moncanvas.onmousemove = null;
   moncanvas.onmousemove = (e) => {
     if (en_dessin) {
-      ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
+      //   ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
 
       const endX = e.offsetX;
       const endY = e.offsetY;
@@ -174,6 +93,43 @@ cercle_btn__dom.addEventListener("click", (event) => {
       ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
 
       ctx.stroke();
+    }
+  };
+});
+
+rectangle_btn__dom.addEventListener("click", (event) => {
+  let startX = 0;
+  let startY = 0;
+
+  moncanvas.onmousedown = (e) => {
+    en_dessin = true;
+
+    startX = e.offsetX;
+    startY = e.offsetY;
+  };
+
+  moncanvas.onmouseup = (e) => {
+    en_dessin = false;
+
+    const endX = e.offsetX;
+    const endY = e.offsetY;
+    const width = endX - startX;
+    const height = endY - startY;
+
+    ctx.strokeRect(startX, startY, width, height);
+  };
+
+  moncanvas.onmousemove = null;
+  moncanvas.onmousemove = (e) => {
+    if (en_dessin) {
+      // ctx.clearRect(0, 0, moncanvas.width, moncanvas.height);
+
+      const endX = e.offsetX;
+      const endY = e.offsetY;
+      const width = endX - startX;
+      const height = endY - startY;
+
+      ctx.strokeRect(startX, startY, width, height);
     }
   };
 });
