@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aim game</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <nav>
+      <div id="nav-left">
+        <button class="btn btn-danger" id="btn-pause">pause</button>
+        <button class="btn btn-success" id="btn-resume">resume</button>
+        <button class="btn" id="btn-start">start</button>
+      </div>
+      <div id="nav-mid">
+        <div>
+          <select name="shape-type" id="shape-type">
+            <option value="rectangle" selected>rectangle</option>
+            <option value="circle">circle</option>
+            <option value="random">random</option>
+          </select>
+        </div>
+        <div>
+          <input type="color" name="shape-color" id="shape-color" />
+        </div>
+        <div>
+          <select name="shape-size" id="shape-size">
+            <option value="large" selected>large</option>
+            <option value="medium">medium</option>
+            <option value="small">small</option>
+            <option value="random">random</option>
+          </select>
+        </div>
+      </div>
+      <div id="nav-right">
+        <span class="highlight font-success">
+          hit :
+          <span id="hits-counter">0</span>
+        </span>
+        <span class="highlight font-danger">
+          miss :
+          <span id="misses-counter">0</span>
+        </span>
+      </div>
+    </nav>
+    <canvas id="myCanvas"></canvas>
+    <script src="helpers.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

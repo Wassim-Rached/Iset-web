@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  padding: 0;
+  padding: 0 10px;
+  height: 50px;
+  width: 100%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background: #007bff;
+}
+
+#myCanvas {
+  background-color: #333333;
+}
+
+.pause-screen {
+  position: absolute;
+  background-color: #333333b3;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+/* background-color: #333333; */
+/* background-color: #ffd602; */
+/* background-color: #007bff; */
+/* background-color: #ffffff; */
+
+.btn {
+  outline: none;
+  border: none;
+  padding: 8px;
+  color: #333333;
+  border-radius: 5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: #ffd602;
+}
+
+.btn-danger {
+  background: rgb(197, 51, 51);
+}
+
+.btn-success {
+  background: rgb(36, 192, 103);
+}
+
+.highlight {
+  background: #ffffff;
+  color: #333333;
+  border-radius: 5px;
+  padding: 5px;
+  min-width: 70px;
+  text-align: center;
+}
+
+.font-danger {
+  color: rgb(197, 51, 51);
+}
+.font-success {
+  color: rgb(36, 192, 103);
+}
+
+#nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+#nav-mid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pop-out {
+  width: 250px;
+  min-height: 30px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  position: absolute;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: calc(50% - 125px);
+  top: 60px;
+}
+
+.pop-out-success {
+  background-color: rgb(36, 192, 103);
+}
+
+.pop-out-danger {
+  background-color: rgb(197, 51, 51);
+}
+
+input[type="color"] {
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid rgb(207, 207, 207);
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3498db;
+}
