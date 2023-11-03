@@ -1,3 +1,6 @@
+const SHAPE_SIZES = [20, 40, 60];
+const SHAPE_TYPES = ["rectangle", "circle"];
+
 function clearCanvas(ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -63,7 +66,12 @@ function resumeCanvasScreen() {
 }
 
 function getShapeSize() {
-  return document.getElementById("shape-size").value;
+  const shape_size = document.getElementById("shape-size").value;
+  if (shape_size == "random") {
+    const randomIndex = Math.floor(Math.random() * SHAPE_SIZES.length);
+    return SHAPE_SIZES[randomIndex];
+  }
+  return parseInt(shape_size);
 }
 
 function getShapeColor() {
@@ -71,5 +79,10 @@ function getShapeColor() {
 }
 
 function getShapeType() {
-  return document.getElementById("shape-type").value;
+  const shape_type = document.getElementById("shape-type").value;
+  if (shape_type == "random") {
+    const randomIndex = Math.floor(Math.random() * SHAPE_TYPES.length);
+    return SHAPE_TYPES[randomIndex];
+  }
+  return shape_type;
 }

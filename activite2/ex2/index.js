@@ -37,23 +37,47 @@ class Target {
   y;
   width;
   height;
-  static fillStyle = "#ffd602";
+  type;
+  fillStyle;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
+
+    this.type = getShapeType();
+    this.size = getShapeSize();
+    this.fillStyle = getShapeColor();
 
     this.x = Target.getRandomCanvasPositionX(this.width);
     this.y = Target.getRandomCanvasPositionY(this.height);
   }
 
   drawTarget() {
-    ctx.fillStyle = getShapeColor();
-    ctx.beginPath();
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fill();
-  }
+    switch (this.type) {
+      case "rectangle":
+        ctx.fillStyle = this.fillStyle;
+        ctx.beginPath();
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.fill();
+        break;
 
+      case "circle":
+        ctx.fillStyle = this.fillStyle;
+        ctx.beginPath();
+        ctx.arc(
+          this.x + this.size / 2,
+          this.y + this.size / 2,
+          this.size / 2,
+          0,
+          2 * Math.PI
+        );
+        ctx.fill();
+        break;
+
+      default:
+        break;
+    }
+  }
   static getRandomCanvasPositionX(width) {
     return Math.random() * (canvas.width - width);
   }
