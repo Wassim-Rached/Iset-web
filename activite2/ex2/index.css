@@ -43,10 +43,6 @@ body {
   right: 0;
   bottom: 0;
 }
-/* background-color: #333333; */
-/* background-color: #ffd602; */
-/* background-color: #007bff; */
-/* background-color: #ffffff; */
 
 .btn {
   outline: none;
@@ -96,7 +92,8 @@ body {
 }
 
 .pop-out {
-  width: 250px;
+  padding: 8px;
+  width: 275px;
   min-height: 30px;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -107,6 +104,7 @@ body {
   justify-content: center;
   left: calc(50% - 125px);
   top: 60px;
+  animation: vanish 4s ease-out forwards;
 }
 
 .pop-out-success {
@@ -115,6 +113,11 @@ body {
 
 .pop-out-danger {
   background-color: rgb(197, 51, 51);
+}
+
+.pop-out-info {
+  color: #333333;
+  background-color: #ffd602;
 }
 
 input[type="color"] {
@@ -136,4 +139,23 @@ select {
 select:focus {
   outline: none;
   border-color: #3498db;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  border: 1px solid #999;
+}
+
+@keyframes vanish {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

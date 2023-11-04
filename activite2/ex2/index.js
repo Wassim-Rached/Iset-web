@@ -1,5 +1,5 @@
 //
-const button_start = document.getElementById("btn-start");
+const btn_start = document.getElementById("btn-start");
 const btn_resume = document.getElementById("btn-resume");
 const btn_pause = document.getElementById("btn-pause");
 
@@ -17,8 +17,6 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
-document.body.onload = startTheGame;
-
 //
 var hits = 0;
 var misses = 0;
@@ -27,9 +25,26 @@ var currentTarget;
 var gameInterval;
 var isGamePaused = true;
 
+function resetVars() {
+  hits = 0;
+  misses = 0;
+  TIMER = 2000;
+  currentTarget;
+  gameInterval;
+  isGamePaused = true;
+}
+
 //
 const TAGET_WIDTH = 60;
 const TAGET_HEIGHT = 60;
+
+function init() {
+  createPopOut("Spacebar to Pause/Resume", "info");
+  resetVars();
+  startTheGame();
+}
+
+document.body.onload = init;
 
 //
 class Target {
@@ -74,6 +89,16 @@ class Target {
         ctx.fill();
         break;
 
+      case "triangle":
+        ctx.fillStyle = this.fillStyle;
+        ctx.beginPath();
+        ctx.moveTo(this.x + this.size / 2, this.y);
+        ctx.lineTo(this.x + this.size, this.y + this.size);
+        ctx.lineTo(this.x, this.y + this.size);
+        ctx.closePath();
+        ctx.fill();
+        break;
+
       default:
         break;
     }
@@ -103,8 +128,9 @@ class Target {
 
 //
 function startTheGame() {
+  console.log("new game created");
+  resetVars();
   isGamePaused = false;
-  resumeCanvasScreen();
 
   hits = 0;
   misses = 0;
@@ -114,7 +140,7 @@ function startTheGame() {
   startSpawningTargets();
 }
 
-button_start.onclick = startTheGame;
+btn_start.onclick = startTheGame;
 
 function startSpawningTargets() {
   clearCanvas(ctx);
@@ -163,3 +189,13 @@ canvas.addEventListener("click", (event) => {
     document.getElementById("misses-counter").innerHTML = ++misses;
   }
 });
+
+document.onkeydown = (event) => {
+  if (event.keyCode === 32) {
+    if (isGamePaused) {
+      resumeTheGame();
+    } else {
+      pauseTheGame();
+    }
+  }
+};

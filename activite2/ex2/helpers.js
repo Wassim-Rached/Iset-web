@@ -1,5 +1,5 @@
 const SHAPE_SIZES = [20, 40, 60];
-const SHAPE_TYPES = ["rectangle", "circle"];
+const SHAPE_TYPES = ["rectangle", "circle", "triangle"];
 
 function clearCanvas(ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -37,20 +37,23 @@ function createPopOut(message, status) {
   switch (status) {
     case "success":
       popOut.classList.add("pop-out-success");
-      document.body.appendChild(popOut);
       break;
 
     case "danger":
       popOut.classList.add("pop-out-danger");
-      document.body.appendChild(popOut);
+      break;
+
+    case "info":
+      popOut.classList.add("pop-out-info");
       break;
 
     default:
-      break;
+      return;
   }
+  document.body.appendChild(popOut);
   setTimeout(() => {
     popOut.remove();
-  }, 2000);
+  }, 4000);
 }
 
 function pauseCanvasScreen() {
