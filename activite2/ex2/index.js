@@ -39,7 +39,6 @@ const TAGET_WIDTH = 60;
 const TAGET_HEIGHT = 60;
 
 function init() {
-  createPopOut("Spacebar to Pause/Resume", "info");
   resetVars();
   startTheGame();
 }
@@ -128,9 +127,7 @@ class Target {
 
 //
 function startTheGame() {
-  console.log("new game created");
-  resetVars();
-  isGamePaused = false;
+  resumeTheGame();
 
   hits = 0;
   misses = 0;
@@ -189,13 +186,3 @@ canvas.addEventListener("click", (event) => {
     document.getElementById("misses-counter").innerHTML = ++misses;
   }
 });
-
-document.onkeydown = (event) => {
-  if (event.keyCode === 32) {
-    if (isGamePaused) {
-      resumeTheGame();
-    } else {
-      pauseTheGame();
-    }
-  }
-};
