@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mon CV</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="../ex_media_query/media_query.css" />
+  </head>
+  <body>
+    <nav><span>Wassim Rached</span></nav>
+    <main>
+      <div id="videoContainer">
+        <!-- i used "https://codepen.io/huandu/pen/WNeZMMX" for refrence -->
+        <video id="myVideo" controls>
+          <source src="./assets/monVideo.ogv" type="video/mp4" />
+          Votre navigateur ne supporte pas la lecture de vidéos.
+          <track
+            id="track"
+            src="./assets/subtitle.vtt"
+            kind="subtitles"
+            srclang="en"
+            label="Nightmare"
+            default
+          />
+        </video>
+        <div class="controllers">
+          <button id="play">play</button>
+          <button id="pause">pause</button>
+          <button id="increaseVolume">increase volume</button>
+          <button id="decreaseVolume">decrease volume</button>
+        </div>
+      </div>
+    </main>
+    <audio id="myAudio" controls autoplay loop volume="0.3">
+      <source src="./assets/mon_audio.mp3" type="audio/mpeg" />
+      Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+
+    <script src="index.js"></script>
+  </body>
+</html>
