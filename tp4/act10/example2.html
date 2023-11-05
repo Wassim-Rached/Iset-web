@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>HTML5 : Canvas</title>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #eee;
+        text-align: center;
+        padding-top: 10%;
+      }
+      canvas {
+        border: 5px solid #666;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0px 0px 20px #666;
+      }
+      .container {
+        font-size: 1.2rem;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      p {
+        color: purple;
+      }
+      input {
+        padding: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>current size : <span id="current_size"></span></p>
+      <form id="form">
+        <label for="movement_size">movement size</label>
+        <input
+          type="number"
+          value="5"
+          onchange="setMovementSize()"
+          name="movement_size"
+          id="movement_size"
+        />
+        <label for="line_color">line color: </label>
+        <input
+          type="color"
+          onchange="setLineColor()"
+          name="line_color"
+          id="line_color"
+        />
+      </form>
+    </div>
+    <canvas id="dessin" width="480" height="360"></canvas>
+    <script>
+      var moncanvas = document.getElementById("dessin");
+      var ctx = moncanvas.getContext("2d");
+
+      (function init() {
+        ctx.strokeStyle = document.getElementById("line_color").value;
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        setLineColor();
+      })();
+
+      var movment_size = 5;
+      document.getElementById("current_size").innerHTML = movment_size;
+
+      // Calcul du centre
+      var x = moncanvas.width / 2;
+      var y = moncanvas.height / 2;
+      // Position de départ (au centre)
+      ctx.moveTo(x, y);
+      // Gestionnaire d'événement keydown
+      if (document.body.onkeydown) {
+        document.body.onkeydown = dessiner;
+      } else if (document) {
+        document.onkeydown = dessiner;
+      }
+
+      // Déplacement du "pinceau"
+      function dessiner(event) {
+        switch (event.keyCode) {
+          case 38: // Haut
+            event.preventDefault();
+            if (y >= movment_size) y -= movment_size;
+            if (y < 0) y = 0;
+            break;
+          case 40: // Bas
+            event.preventDefault();
+            if (y < moncanvas.height) y += movment_size;
+            if (y > moncanvas.height) y = moncanvas.height;
+            break;
+          case 39: // Droite
+            event.preventDefault();
+            if (x < moncanvas.width) x += movment_size;
+            if (x > moncanvas.width) y = moncanvas.width;
+            break;
+          case 37: // Gauche
+            event.preventDefault();
+            if (x >= movment_size) x -= movment_size;
+            if (x < 0) x = 0;
+            break;
+        }
+        // Tracé d’après le décalage effectué
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+
+      function setMovementSize() {
+        const new_size =
+          parseInt(document.getElementById("movement_size").value) || 5;
+        movment_size = new_size;
+        document.getElementById("current_size").innerHTML = movment_size;
+      }
+
+      function setLineColor() {
+        ctx.beginPath();
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.strokeStyle = document.getElementById("line_color").value;
+      }
+
+      document.getElementById("form").onsubmit = (e) => e.preventDefault();
+    </script>
+  </body>
+</html>

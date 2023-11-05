@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      canvas {
+        border: 1px solid #2c2c2b; /* 1px border around canvas */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="Canvas" width="600" height="250"></canvas>
+    <script>
+      var canvas = document.getElementById("Canvas");
+      var ctx = canvas.getContext("2d");
+      // Configuration des ombrages pour le rectangle
+      //Etendue sur l’axe X = 0; Etendue sur Y ;Valeur du flou = 15; couleur ombre =
+      //'rgba(204,69,228,1)';
+      ctx.shadowColor = "rgba(204, 69, 228, 1)";
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+
+      ctx.shadowBlur = 30;
+      ctx.shadowOffsetX = 10;
+      ctx.shadowOffsetY = 10;
+
+      // Tracé d'un rectangle
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(10, 10, 150, 150);
+      // Tracé d'un autre rectangle
+      ctx.fillStyle = "#9f0c9d";
+      ctx.fillRect(50, 50, 70, 70);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="dessin" width="300" height="300"></canvas>
+    <script>
+      var moncanvas = document.getElementById("dessin");
+      var ctx = moncanvas.getContext("2d");
+
+      const img = new Image();
+      img.src =
+        "https://hips.hearstapps.com/hmg-prod/images/close-up-of-tulips-blooming-in-field-royalty-free-image-1584131603.jpg";
+
+      ctx.arc(150, 150, 150, 0, Math.PI * 2, false);
+      ctx.clip();
+
+      ctx.drawImage(img, 0, 0);
+    </script>
+  </body>
+</html>
