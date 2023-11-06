@@ -1,0 +1,15 @@
+main {
+  display: flex;
+  min-height: 200px;
+  margin: 10px;
+  padding: 10px;
+}
+
+main .container {
+  flex: 1;
+  border: 1px dotted black;
+}
+
+.dragging {
+  background: red;
+}

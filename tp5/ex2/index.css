@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c1 {
+  background: cyan;
+}
+.c2 {
+  background: green;
+}
+.c3 {
+  background: purple;
+}
+.c4 {
+  background: yellowgreen;
+}
+
+main {
+  display: flex;
+  min-height: 400px;
+  padding: 10px;
+}
+
+main .container {
+  flex: 1;
+  border: 1px dotted black;
+}
+
+.circle.dragging {
+  opacity: 0.5;
+  background: red;
+}
