@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #dessin {
+        border: 1px dashed black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="dessin" width="600" height="600"></canvas>
+    <script>
+      const moncanvas = document.getElementById("dessin");
+      const ctx = moncanvas.getContext("2d");
+
+      ctx.beginPath();
+      ctx.fillStyle = "rgb(255, 215, 0)";
+      ctx.fillRect(300, 300, 300, 300);
+
+      ctx.fillStyle = "rgb(220, 20, 60) ";
+      ctx.fillRect(200, 200, 200, 200);
+      ctx.globalCompositeOperation = "source-atop";
+
+      ctx.fillStyle = "rgb(0, 191, 255)";
+      ctx.arc(150, 150, 180, 0, Math.PI * 2, false);
+      ctx.fill();
+    </script>
+  </body>
+</html>

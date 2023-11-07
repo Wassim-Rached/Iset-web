@@ -1,0 +1,24 @@
+@media only screen and (max-width: 992px) {
+  #videoContainer {
+    padding: 0;
+  }
+  #videoContainer #myVideo {
+    width: 100%;
+  }
+  #videoContainer .controllers {
+    flex-direction: column;
+  }
+  #videoContainer .controllers button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  #videoContainer .controllers {
+    padding: 10px;
+    width: 100%;
+  }
+  #videoContainer .controllers button {
+    width: 100%;
+  }
+}

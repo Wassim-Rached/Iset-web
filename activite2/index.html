@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>resume by wassimRached</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #000;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+      }
+
+      #div1 {
+        width: 1200px;
+        height: 400px;
+        background: red;
+      }
+
+      #div2 {
+        background: blue;
+        width: 400px;
+        height: 400px;
+      }
+
+      @media only screen and (max-width: 1260px) {
+        #div1,
+        #div2 {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">div 1</div>
+    <div id="div2">div 2</div>
+  </body>
+</html>

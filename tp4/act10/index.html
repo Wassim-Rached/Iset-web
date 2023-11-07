@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>HTML5 : Canvas</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #eee;
+        text-align: center;
+        padding-top: 10%;
+      }
+      .palette span {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 4px;
+      }
+      .palette span:hover {
+        border-color: white;
+      }
+      canvas {
+        cursor: crosshair;
+        border: 5px solid #666;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0px 0px 20px #666;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="form_creuse" onclick="setForm('creuse')">form creuse</label>
+    <input
+      type="radio"
+      name="form"
+      id="form_creuse"
+      onclick="setForm('creuse')"
+      checked
+    />
+    <label for="form_creuse" onclick="setForm('pleine')">form pleine</label>
+    <input
+      type="radio"
+      name="form"
+      onclick="setForm('pleine')"
+      id="form_pleine"
+    />
+    <!-- Palette de couleurs _ -->
+    <div class="palette">
+      <span
+        onclick="modifierCouleur('#206BA4');"
+        style="background: #206ba4"
+      ></span>
+      <span
+        onclick="modifierCouleur('#54A4DE');"
+        style="background: #54a4de"
+      ></span>
+      <span
+        onclick="modifierCouleur('#BBD9EE');"
+        style="background: #bbd9ee"
+      ></span>
+      <span
+        onclick="modifierCouleur('#BEDF5D');"
+        style="background: #bedf5d"
+      ></span>
+      <span
+        onclick="modifierCouleur('#D6EB9A');"
+        style="background: #d6eb9a"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FF9834');"
+        style="background: #ff9834"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FFBF80');"
+        style="background: #ffbf80"
+      ></span>
+      <span
+        onclick="modifierCouleur('#F6E896');"
+        style="background: #f6e896"
+      ></span>
+      <span
+        onclick="modifierCouleur('#b07d42');"
+        style="background: #b07d42"
+      ></span>
+      <span
+        onclick="modifierCouleur('#FF5349');"
+        style="background: #ff5349"
+      ></span>
+    </div>
+    <!-- Canvas -->
+    <canvas id="dessin" width="480" height="360"></canvas>
+    <script>
+      var moncanvas = document.getElementById("dessin");
+      var ctx = moncanvas.getContext("2d");
+      var en_dessin = false;
+      var form = "creuse";
+
+      // Propriétés graphiques par défaut _
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 2;
+
+      // Bouton de souris activé _
+      moncanvas.onmousedown = function (e) {
+        // Dessin activé
+        en_dessin = true;
+        ctx.beginPath();
+        // Repositionnement du début du tracé
+        console.log(e);
+        ctx.moveTo(e.offsetX, e.offsetY);
+      };
+      // Mouvement de souris
+      moncanvas.onmousemove = function (e) {
+        if (en_dessin) dessiner(e.offsetX, e.offsetY);
+      };
+      // Bouton de souris relâché _
+      moncanvas.onmouseup = function (e) {
+        // Dessin désactivé
+        en_dessin = false;
+      };
+      // Ajoute un segment au tracé _
+      function dessiner(x, y) {
+        ctx.lineTo(x, y);
+        if (form == "creuse") {
+          ctx.stroke();
+        }
+
+        if (form == "pleine") {
+          ctx.fill();
+        }
+      }
+      // Modification de la couleur du contexte _
+      function modifierCouleur(codeCouleur) {
+        if (codeCouleur) {
+          if (form == "creuse") {
+            ctx.strokeStyle = codeCouleur;
+            ctx.fillStyle = undefined;
+          }
+
+          if (form == "pleine") {
+            ctx.fillStyle = codeCouleur;
+            ctx.strokeStyle = undefined;
+          }
+        }
+      }
+
+      function setForm(value) {
+        form = value;
+      }
+    </script>
+  </body>
+</html>

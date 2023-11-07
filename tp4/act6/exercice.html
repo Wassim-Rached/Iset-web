@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #test {
+        width: 100px;
+        height: 100px;
+        margin: 0px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="mycanvas" width="600px" height="600px">
+      Votre navigateur ne supporte ps les cnvas HTML5
+    </canvas>
+    <script type="text/javascript">
+      var canvas = document.getElementById("mycanvas");
+      var ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "rgb(255, 51, 153)";
+      ctx.save();
+
+      ctx.fillRect(45, 45, 60, 60);
+
+      ctx.fillStyle = "rgb(250, 75, 42)";
+      ctx.translate(0, 100);
+      ctx.fillRect(145, 45, 60, 60);
+
+      ctx.fillRect(245, 45, 60, 60);
+
+      ctx.restore();
+      ctx.fillRect(345, 45, 60, 60);
+    </script>
+  </body>
+</html>
