@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+          window.onload = countVisits;
+
+          function countVisits() {
+      if (localStorage.visite) {
+      	localStorage.visite = Number(localStorage.visite)++;
+      } else {
+      	localStorage.setItem("visite", 1);
+      	inputUser();
+      }
+      alert(
+      `Bonjour ${localStorage.getItem("nom")} ${localStorage.getItem("prenom")}, vous avez visité cette page ${localStorage.getItem("visite"
+      )} fois.`
+      );
+          }
+
+          function inputUser(){
+          localStorage.setItem("nom", prompt("nom :"));
+          localStorage.setItem("prenom", prompt("prenom :"));
+          localStorage.setItem(
+          "titre_de_civilite",
+          prompt("titre de civilite :")
+          );
+          }
+    </script>
+  </body>
+</html>

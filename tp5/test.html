@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercice note</title>
+    <style>
+      body {
+        min-height: 100vh;
+      }
+      #bonhome {
+        display: none;
+      }
+      #bonhome.show {
+        display: block;
+      }
+      #clear-storage {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .alert {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <div>
+        <label for="lang">language: </label>
+        <select name="lang" id="lang">
+          <option value="fr">francais</option>
+          <option value="en">english</option>
+        </select>
+      </div>
+      <div>
+        <label for="color">color: </label>
+        <select name="color" id="color">
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+      <div>
+        <label for="police">police: </label>
+        <select name="police" id="police">
+          <option value="arial">Arial</option>
+          <option value="times">Times New Roman</option>
+          <option value="verdana">Verdana</option>
+        </select>
+      </div>
+      <div>
+        <label for="fond">fond: </label>
+        <select name="fond" id="fond">
+          <option value="white">White</option>
+          <option value="gray">Gray</option>
+          <option value="black">Black</option>
+        </select>
+      </div>
+      <br />
+      <button type="submit">submit</button>
+    </form>
+    <button type="button" id="visualiser">visualiser</button>
+
+    <div id="geo"></div>
+
+    <div id="have_changed_message"></div>
+
+    <div id="bonhome">
+      <svg width="258" height="400">
+        <rect
+          y="380"
+          x="2"
+          width="250"
+          height="10"
+          style="fill: yellow; stroke-width: 4; stroke: black"
+        />
+
+        <line
+          x1="20"
+          y1="380"
+          x2="20"
+          y2="10"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          x1="18"
+          y1="10"
+          x2="140"
+          y2="10"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          id="i1"
+          x1="138"
+          y1="10"
+          x2="138"
+          y2="50"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <circle
+          id="i2"
+          cx="138"
+          cy="80"
+          r="30"
+          stroke="black"
+          stroke-width="4"
+          fill="yellow"
+        />
+
+        <line
+          id="i3"
+          x1="138"
+          y1="110"
+          x2="138"
+          y2="250"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          id="i4"
+          x1="138"
+          y1="140"
+          x2="100"
+          y2="200"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          id="i5"
+          x1="138"
+          y1="140"
+          x2="178"
+          y2="200"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          id="i6"
+          x1="138"
+          y1="250"
+          x2="100"
+          y2="310"
+          style="stroke: black; stroke-width: 4"
+        />
+
+        <line
+          id="i7"
+          x1="138"
+          y1="250"
+          x2="178"
+          y2="310"
+          style="stroke: black; stroke-width: 4"
+        />
+      </svg>
+    </div>
+    <button id="clear-storage">clear storage</button>
+    <script>
+      const form = document.querySelector("form");
+      const clear_storage_btn__dom = document.getElementById("clear-storage");
+      const map__dom = document.getElementById("geo");
+      const visualiser__dom = document.getElementById("visualiser");
+      const bonhome__dom = document.getElementById("bonhome");
+      const have_changed_message__dom = document.getElementById(
+        "have_changed_message"
+      );
+      const manipulated_text__dom = document.querySelector("#geo");
+
+      const TEXT_FOR_LANG = {
+        en: {
+          have_changed_message: "You have changed location",
+        },
+        fr: {
+          have_changed_message: "Vous avez changer de lieu",
+        },
+      };
+
+      window.onload = init;
+
+      function init() {
+        loadStyles();
+        showPosition();
+        handleBonhome();
+      }
+
+      function loadStyles() {
+        if (localStorage.getItem("color")) {
+          manipulated_text__dom.style.color = localStorage.getItem("color");
+        }
+        if (localStorage.getItem("police")) {
+          manipulated_text__dom.style.fontFamily =
+            localStorage.getItem("police");
+        }
+        if (localStorage.getItem("fond")) {
+          manipulated_text__dom.style.backgroundColor =
+            localStorage.getItem("fond");
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const color = event.target.color.value;
+        const police = event.target.police.value;
+        const fond = event.target.fond.value;
+        const lang = event.target.lang.value;
+
+        localStorage.setItem("color", color);
+        localStorage.setItem("police", police);
+        localStorage.setItem("fond", fond);
+        localStorage.setItem("lang", lang);
+
+        loadStyles();
+        getLocation();
+      });
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(savePosition);
+        } else {
+          map__dom.innerHTML =
+            "Geolocation n'est pas prise en charge par ce navigateur.";
+        }
+      }
+
+      function savePosition(position) {
+        if (placeHaveChanged(position)) {
+          have_changed_message__dom.innerHTML =
+            TEXT_FOR_LANG[getLangue()].have_changed_message;
+          localStorage.setItem("latitude", position.coords.latitude);
+          localStorage.setItem("longitude", position.coords.longitude);
+          have_changed_message__dom.classList.add("alert");
+          have_changed_message__dom.classList.add("alert");
+        } else {
+          have_changed_message__dom.innerHTML = "";
+        }
+        showPosition();
+      }
+
+      function showPosition() {
+        map__dom.innerHTML =
+          "Latitude: " +
+          localStorage.getItem("latitude") +
+          "<br>Longitude: " +
+          localStorage.getItem("longitude");
+      }
+
+      function placeHaveChanged(position) {
+        const current_latitude = localStorage.getItem("latitude");
+        const current_longitude = localStorage.getItem("longitude");
+        const new_latitude = position.coords.latitude;
+        const new_longitude = position.coords.longitude;
+        return (
+          current_latitude != new_latitude || current_longitude != new_longitude
+        );
+      }
+
+      function getLangue() {
+        return localStorage.getItem("lang") || "fr";
+      }
+
+      visualiser__dom.addEventListener("click", handleVisualiserClick);
+
+      function handleVisualiserClick() {
+        localStorage.setItem("bonhome-isActive", !bonhomeIsActive());
+        handleBonhome();
+      }
+
+      function handleBonhome() {
+        if (bonhomeIsActive()) {
+          bonhome__dom.classList.add("show");
+          visualiser__dom.innerHTML = "cacher";
+        } else {
+          bonhome__dom.classList.remove("show");
+          visualiser__dom.innerHTML = "visualiser";
+        }
+      }
+
+      function bonhomeIsActive() {
+        return localStorage.getItem("bonhome-isActive") === "true";
+      }
+
+      function clearStorage() {
+        localStorage.clear();
+      }
+
+      clear_storage_btn__dom.addEventListener("click", clearStorage);
+    </script>
+  </body>
+</html>

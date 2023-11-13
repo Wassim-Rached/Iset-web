@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex2</title>
+</head>
+<body>
+     <div id="gameContainer">
+            <p id="newgame">
+                <input type="button" onclick="newGame()" value="New Game">
+            </p>
+            <div id="gimage">
+                <svg width="258" height="400">
+                    <rect y="380" x="2" width="250" height="10" style="fill:yellow;stroke-width:4;stroke:black" />
+
+                    <line x1="20" y1="380" x2="20" y2="10" style="stroke:black;stroke-width:4"/>
+
+                    <line x1="18" y1="10" x2="140" y2="10" style="stroke:black;stroke-width:4"/>
+
+                    <line id="i1" x1="138" y1="10" x2="138" y2="50" style="stroke:black;stroke-width:4"/>
+                    
+                    <circle id="i2" cx="138" cy="80" r="30" stroke="black" stroke-width="4" fill="yellow" />
+
+                    <line id="i3" x1="138" y1="110" x2="138" y2="250" style="stroke:black;stroke-width:4"/>
+
+                    <line id="i4" x1="138" y1="140" x2="100" y2="200" style="stroke:black;stroke-width:4"/>
+
+                    <line id="i5" x1="138" y1="140" x2="178" y2="200" style="stroke:black;stroke-width:4"/>
+
+                    <line id="i6" x1="138" y1="250" x2="100" y2="310" style="stroke:black;stroke-width:4"/>
+
+                    <line id="i7" x1="138" y1="250" x2="178" y2="310" style="stroke:black;stroke-width:4"/>
+                </svg>
+            </div>
+            <script>
+                function deleteElement(id) {
+                    try {
+                        document.getElementById(id).style.display = "none";
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+
+                function resetElement(id) {
+                    try {
+                        document.getElementById(id).style.display = "block";
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+
+                function newGame() {
+                    for (let i = 1; i <= 7; i++) {
+                        resetElement('i'+i)
+                    }
+                }
+
+                for (let i = 2; i <= 7; i++) {
+                    deleteElement('i'+i)
+                }
+        </script>
+    </body>
+</html>
