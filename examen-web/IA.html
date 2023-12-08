@@ -26,7 +26,55 @@
       }
 
       .sm-title {
+        text-align: center;
+        background: rgb(88, 48, 48);
+      }
+
+      @keyframes loopColor {
+        0% {
+          color: red;
+        }
+        25% {
+          color: green;
+        }
+        50% {
+          color: aqua;
+        }
+        75% {
+          color: blue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+      #zone-1 {
         background: gray;
+        animation: loopColor 5s infinite;
+      }
+
+      .d-none {
+        display: none;
+      }
+
+      .MsgDiv {
+        background-color: #e6ebef;
+        color: #1c87c9;
+      }
+      .container {
+        display: inline-block;
+        min-width: 100px;
+        margin: 0 6px;
+        height: 15px;
+        border-bottom: dashed 2px black;
+      }
+
+      #draggable-objects strong {
+        border-bottom: 1px solid black;
+        margin-right: 10px;
+      }
+
+      .right {
+        flex: 1;
       }
     </style>
   </head>
@@ -38,7 +86,7 @@
           <div class="title">Documentation</div>
           <hr />
           <ul>
-            <li>Video</li>
+            <li id="video-btn">Video</li>
             <li>Articles</li>
           </ul>
         </div>
@@ -52,29 +100,156 @@
           </ul>
         </div>
       </div>
-      <div>
+      <div class="right">
         <div>
           <div>
-            <h1 class="sm-title">Presontation</h1>
-            <div id="zone-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
-              facilis dolorum. Voluptatibus facilis iusto praesentium corrupti
-              obcaecati reprehenderit voluptates nam similique! Corporis,
-              repudiandae! Ullam perferendis nisi sint officia ipsum dolorum?
-            </div>
+            <div class="sm-title"><h1>Presontation</h1></div>
+            <div id="zone-4"></div>
           </div>
           <div>
-            <h1 class="sm-title">Evaluation</h1>
+            <div class="sm-title"><h1>Evaluation</h1></div>
             <div id="zone-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Reprehenderit asperiores quo laboriosam, saepe impedit recusandae
-              culpa deleniti vel tenetur magni, exercitationem possimus qui
-              veniam distinctio accusantium, necessitatibus illum. Consectetur,
-              voluptatum.
+              <div>
+                L'inteligence Artificielle ou
+                <div class="container" solution="IA"></div>
+                est un branche de l'informatique dediee a la conception de
+                <span class="container" solution="machines"></span> capables
+                d'imiter le cervau
+                <span class="container" solution="humain"></span> dans des
+                taches telles que l'
+                <span class="container" solution="apprentissage"></span>
+                ou le <span class="container" solution="raisonnement"></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <div class="MsgDiv"></div>
+    <div id="draggable-objects">
+      <strong draggable="true">IA</strong>
+      <strong draggable="true">machines</strong>
+      <strong draggable="true">humain</strong>
+      <strong draggable="true">apprentissage</strong>
+      <strong draggable="true">raisonnement</strong>
+    </div>
+    <button id="show-solution">solution</button>
+    <div class="MsgDiv"></div>
+    <div class="MsgDiv"></div>
+    <script>
+      //
+      var var_score = 0;
+      //
+      const zone_3__dom = document.getElementById("zone-3");
+      const zone_4__dom = document.getElementById("zone-4");
+      const video_btn__dom = document.getElementById("video-btn");
+      const MsgDiv1__dom = document.querySelectorAll(".MsgDiv")[0];
+      const MsgDiv2__dom = document.querySelectorAll(".MsgDiv")[1];
+      const MsgDiv3__dom = document.querySelectorAll(".MsgDiv")[2];
+      const show_solution__dom = document.getElementById("show-solution");
+
+      const correction = `
+              		L'inteligence Artificielle ou <strong>IA</strong> est un branche
+                            de l'informatique dediee a la conception de
+                            <strong>machines</strong> capables d'imiter le cervau
+                            <strong>humain</strong> dans des taches telles que l'
+                            <strong>apprentissage</strong>
+                            ou le <strong>raisonnement</strong>
+              `;
+      //
+      window.onload = init;
+
+      function init() {
+        checkIfVideoIsSeen();
+        //
+        const last_score = localStorage.getItem("score");
+        if (last_score) {
+          MsgDiv2__dom.innerHTML = `Votre score precedant est ${last_score}`;
+        }
+      }
+
+      //
+      video_btn__dom.addEventListener("click", () => {
+        //
+        let numberOfClicks = getNumberOfVideoclicks();
+        localStorage.setItem("numberOfClicks", ++numberOfClicks);
+
+        //
+        checkIfVideoIsSeen();
+
+        //
+        if (zone_4__dom.children.length > 0)
+          zone_4__dom.removeChild(zone_4__dom.children[0]);
+
+        //
+        const video__dom = document.createElement("video");
+        video__dom.src = "./IA.mp4";
+        video__dom.controls = true;
+        zone_4__dom.appendChild(video__dom);
+
+        //
+        MsgDiv1__dom.innerHTML = `Vous avez vu ${numberOfClicks} fois cette video`;
+      });
+
+      function getNumberOfVideoclicks() {
+        return localStorage.getItem("numberOfClicks") || 0;
+      }
+
+      function checkIfVideoIsSeen() {
+        if (getNumberOfVideoclicks() >= 1) {
+          zone_3__dom.classList.remove("d-none");
+          zone_5__dom.classList.remove("d-none");
+          draggable_objects__dom.classList.remove("d-none");
+          show_solution__dom.classList.remove("d-none");
+        } else {
+          zone_5__dom.classList.add("d-none");
+          zone_3__dom.classList.add("d-none");
+          draggable_objects__dom.classList.add("d-none");
+          show_solution__dom.classList.add("d-none");
+        }
+      }
+      //   solution btn
+      show_solution__dom.addEventListener("click", () => {
+        MsgDiv3__dom.innerHTML = correction;
+      });
+
+      //   drag and drop
+      const zone_5__dom = document.getElementById("zone-5");
+      const draggable_objects__dom =
+        document.getElementById("draggable-objects");
+
+      draggable_objects__dom.addEventListener("dragstart", (e) => {
+        e.target.classList.add("dragging");
+      });
+
+      zone_5__dom.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      zone_5__dom.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const container = e.target;
+        const item = document.querySelector(".dragging");
+
+        if (container.classList.contains("container")) {
+          const solution = container.getAttribute("solution");
+          if (item.innerText === solution) var_score += 4;
+          //
+          MsgDiv2__dom.innerHTML = `Votre score est ${var_score}`;
+          //
+          container.appendChild(item);
+          item.removeAttribute("draggable");
+        }
+        item.classList.remove("dragging");
+
+        if (isValidationFinished()) {
+          localStorage.setItem("score", var_score);
+        }
+      });
+
+      function isValidationFinished() {
+        return draggable_objects__dom.children.length === 0;
+      }
+    </script>
   </body>
 </html>
